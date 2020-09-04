@@ -28,12 +28,33 @@
 $tweaks = @(
 	### Require administrator privileges ###
 	"RequireAdmin",
+	
+	## Aditional Victory Programs
+	"Installfirefox",
+	"Installbrave",
+	"Installchromium",
+	"Installwinrar",
+	"Installvnc-viewer",
+	"Installvnc-connect",
+	"Installteamviewer",
+	"Installgimp",
+	"Installadobereader",
+	"Installbitwarden",
+	"Installvirtualbox",
+	"Installsublimetext3",
+	"Installonlyoffice",
+	"Installdiscord",
+	"Installtwitch",
+	"Installpartitionwizard",
+	"Installimageglass",
+	"Installtukui",
+	"Installvlc",
+	"Installlenovo-thinkvantage-system-update",
 
 	### External Program Setup
 	"InstallTitusProgs", #REQUIRED FOR OTHER PROGRAM INSTALLS!
 	"InstallAdobe",
 	"Install7Zip",
-	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
 
 	### Windows Apps
