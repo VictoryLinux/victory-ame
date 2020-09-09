@@ -1,5 +1,5 @@
 ############################################################
-####    Author: VictoryLinux                            ####
+####    Author: VictoryLinux                          ####
 ####                                                    ####    
 ####    This Script is a personal project. One script   ####    
 ####    to rule them all. To set up a fresh Windows     ####    
@@ -17,7 +17,6 @@ Start-Transcript -path C:\LenovoSetup\Log.txt -append
 $tweaks = @(
     "RequireAdmin",
 #    "wifi",
-#    "Unzip",
     "Restorepoint",
     "UpdateInstalledApps",
 #    "InstallVictoryProgs",
@@ -29,21 +28,18 @@ $tweaks = @(
     "InstallSublimeText",
     "InstallVLC",
     "InstallPIA",
-#	"WaitForKey",
+#    "WaitForKey",
     "SetUACLow",
-#    "EnableSMB1",
     "DisableStickyKeys",
     "EnableNumlock",
-#    "UpgradeEdge",
     "ShowKnownExtensions",
-#    "Patchmypc",
 #    "RestartExplorer",
     "RenameUser",
     "ChangeUserPasswd",
-    "ChangeAdminPasswd",
-    "Wait",
+    "ChangeAdminPasswd"
+#    "Wait",
 #    "LaunchSU",
-    "su",
+#    "su",
     )
 
 Function RequireAdmin {
@@ -53,14 +49,23 @@ Function RequireAdmin {
 	}
 }
 
+Function Restorepoint {
+    Write-Host "Creating a System Restore Point... " -NoNewline
+    Enable-ComputerRestore -Drive "C:\"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
+    Checkpoint-Computer -Description "FirstBackup" -RestorePointType "MODIFY_SETTINGS"
+    Write-Host "Complete" -ForegroundColor Green
+}
+
 Function Uninstall {
 	Write-Output "Uninstalling Thunderbird"
 	choco uninstall thunderbird -y
 }
 	
-Function {
+Function UpdateInstalledApps {
 	Write-Output "Updateing Installed Packages"
 	choco upgrade all -y
+}
 
 Function InstallVictoryProgs {
 	Write-Output "Installing Chocolatey"
@@ -94,7 +99,7 @@ Function InstallChromium {
 }
 
 Function InstallFirefox {
-    Write-Output "Installing Firefox Browser"
+	Write-Output "Installing Firefox Browser"
     choco install firefox -y
 }
 
@@ -129,6 +134,26 @@ Function ChangeAdminPasswd {
 	$Password = Read-Host "Enter the new password" -AsSecureString
 	$UserAccount = Get-LocalUser -Name "Administrator"
 	$UserAccount | Set-LocalUser -Password $Password
-}	
+}
+
+# Normalize path to preset file
+$preset = ""
+$PSCommandArgs = $args
+If ($args -And $args[0].ToLower() -eq "-preset") {
+    $preset = Resolve-Path $($args | Select-Object -Skip 1)
+    $PSCommandArgs = "-preset `"$preset`""
+}
+
+# Load function names from command line arguments or a preset file
+If ($args) {
+    $tweaks = $args
+    If ($preset) {
+        $tweaks = Get-Content $preset -ErrorAction Stop | ForEach { $_.Trim() } | Where { $_ -ne "" -and $_[0] -ne "#" }
+    }
+}
+
+# Call the desired tweak functions
+$tweaks | ForEach { Invoke-Expression $_ }
+Stop-Transcript
 	
 	
