@@ -1,5 +1,5 @@
 ############################################################
-####    Author: VictoryLinux                          ####
+####    Author: VictoryLinux                            ####
 ####                                                    ####    
 ####    This Script is a personal project. One script   ####    
 ####    to rule them all. To set up a fresh Windows     ####    
