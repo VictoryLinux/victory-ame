@@ -19,7 +19,7 @@ $tweaks = @(
 #    "wifi",
 #    "Unzip",
     "Restorepoint",
-    "InstallVictoryProgs",
+#    "InstallVictoryProgs",
     "InstallAdobe",
     "InstallJava",
     "Install7Zip",
@@ -52,9 +52,8 @@ Function RequireAdmin {
 }
 
 Function Uninstall {
-	$Path = "C:\Program Files (x86)\Mozilla Firefox\uninstall\helper.exe"
-	$Switch = "-ms"
-	Start-Process -FilePath $Path -ArgumentList $Switch -Wait
+	Write-Output "Uninstalling Thunderbird"
+	choco uninstall thunderbird -y
 }
 	
 
