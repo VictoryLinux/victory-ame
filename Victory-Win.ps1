@@ -19,6 +19,7 @@ $tweaks = @(
 #    "wifi",
 #    "Unzip",
     "Restorepoint",
+    "UpdateInstalledApps",
 #    "InstallVictoryProgs",
     "InstallAdobe",
     "InstallJava",
@@ -27,6 +28,7 @@ $tweaks = @(
     "InstallChromium",
     "InstallSublimeText",
     "InstallVLC",
+    "InstallPIA",
 #	"WaitForKey",
     "SetUACLow",
 #    "EnableSMB1",
@@ -56,6 +58,9 @@ Function Uninstall {
 	choco uninstall thunderbird -y
 }
 	
+Function {
+	Write-Output "Updateing Installed Packages"
+	choco upgrade all -y
 
 Function InstallVictoryProgs {
 	Write-Output "Installing Chocolatey"
@@ -103,15 +108,27 @@ Function InstallVLC {
 	choco install vlc -y
 }
 
-Function {
-	Rename-LocalUser -Name "User" -NewName "Nimda"
+Function InstallPIA {
+	Write-Output "Installing PIA VPN"
+	choco install pia -y
 }
 
-Function {
+Function RenameUser {
+	Rename-LocalUser -Name "user" -NewName "Nimda"
+}
+
+Function ChangeUserPasswd {
 	Get-LocalUser
 	$Password = Read-Host "Enter the new password" -AsSecureString
 	$UserAccount = Get-LocalUser -Name "nimda"
 	$UserAccount | Set-LocalUser -Password $Password
-	
+}
+
+Function ChangeAdminPasswd {
+	Get-LocalUser
+	$Password = Read-Host "Enter the new password" -AsSecureString
+	$UserAccount = Get-LocalUser -Name "Administrator"
+	$UserAccount | Set-LocalUser -Password $Password
+}	
 	
 	
