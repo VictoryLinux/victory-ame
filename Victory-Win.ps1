@@ -1,5 +1,5 @@
 ############################################################
-####    Author: Jordan Howell"                          ####
+####    Author: VictoryLinux                          ####
 ####                                                    ####    
 ####    This Script is a personal project. One script   ####    
 ####    to rule them all. To set up a fresh Windows     ####    
@@ -36,8 +36,11 @@ $tweaks = @(
     "ShowKnownExtensions",
 #    "Patchmypc",
 #    "RestartExplorer",
+    "RenameUser",
+    "ChangeUserPasswd",
+    "ChangeAdminPasswd",
     "Wait",
-    "LaunchSU",
+#    "LaunchSU",
     "su",
     )
 
@@ -47,6 +50,13 @@ Function RequireAdmin {
 		Exit
 	}
 }
+
+Function Uninstall {
+	$Path = "C:\Program Files (x86)\Mozilla Firefox\uninstall\helper.exe"
+	$Switch = "-ms"
+	Start-Process -FilePath $Path -ArgumentList $Switch -Wait
+}
+	
 
 Function InstallVictoryProgs {
 	Write-Output "Installing Chocolatey"
@@ -94,4 +104,15 @@ Function InstallVLC {
 	choco install vlc -y
 }
 
-Function 
+Function {
+	Rename-LocalUser -Name "User" -NewName "Nimda"
+}
+
+Function {
+	Get-LocalUser
+	$Password = Read-Host "Enter the new password" -AsSecureString
+	$UserAccount = Get-LocalUser -Name "nimda"
+	$UserAccount | Set-LocalUser -Password $Password
+	
+	
+	
