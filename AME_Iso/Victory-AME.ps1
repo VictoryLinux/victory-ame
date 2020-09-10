@@ -222,11 +222,11 @@ Function Backgrounds {
 
 Function SetLockscreen {
 	Write-Output "Setting Lockscreen Image... " -NoNewline
-	$Lockscreen = "victory13.jpg"
+	$Lockscreen = "victory35.jpg"
     If (!(Test-Path "C:\Lockscreen")) {
         New-Item -Path "C:\Lockscreen" -type directory -Force | Out-Null
         }
-	Copy-Item 'C:\Users\user\Pictures\Backgrounds\victory13.jpg' -Destination 'C:\Lockscreen'
+	Copy-Item 'C:\Users\user\Pictures\Backgrounds\victory35.jpg' -Destination 'C:\Lockscreen'
 	$strPath3 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization"
 	New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows -Name Personalization -Force
 	Set-ItemProperty -Path $strPath3 -Name LockScreenImage -value "C:\Lockscreen\$Lockscreen"
