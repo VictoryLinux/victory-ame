@@ -47,6 +47,8 @@ $tweaks = @(
     "ShowKnownExtensions",
 #    "RestartExplorer",
     "Backgrounds",
+    "SetLockscreen",
+    "SetWallpaperSlideshow",
     "RenameUser",
     "ChangeUserPasswd",
     "ChangeAdminPasswd",
@@ -214,8 +216,55 @@ Function InstallLenovo-thinkvantage-system-update {
 
 Function Backgrounds {
 	Write-Output "Setting Up Desktop Wallpaper... " -NoNewline
-	Copy-Item 'C:\victory-win\Backgrounds' -Destination 'C:\Users\user\Pictures'
+	Move-Item 'C:\victory-win\Backgrounds' -Destination 'C:\Users\user\Pictures'
 	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function SetLockscreen {
+	Write-Output "Setting Lockscreen Image... " -NoNewline
+	$Lockscreen = "victory13.jpg"
+    If (!(Test-Path "C:\Lockscreen")) {
+        New-Item -Path "C:\Lockscreen" -type directory -Force | Out-Null
+        }
+	Copy-Item 'C:\Users\user\Pictures\Backgrounds\victory13.jpg' -Destination 'C:\Lockscreen'
+	$strPath3 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization"
+	New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows -Name Personalization -Force
+	Set-ItemProperty -Path $strPath3 -Name LockScreenImage -value "C:\Lockscreen\$Lockscreen"
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function SetWallpaperSlideshow {
+	Add-Type @"
+	using System;
+	using System.Runtime.InteropServices;
+	using Microsoft.Win32;
+	namespace Wallpaper {
+
+	   public class Setter {
+	      public const int SetDesktopWallpaper = 20;
+	      public const int UpdateIniFile = 0x01;
+	      public const int SendWinIniChange = 0x02;
+
+	      [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+	      private static extern int SystemParametersInfo (int uAction, int uParam, string lpvPara, int fuWinIni);
+
+	      public static void SetWallpaper (string path) {
+
+	         SystemParametersInfo(SetDesktopWallpaper, 0, path, UpdateIniFile | SendWinIniChange);
+
+	         RegistryKey key = Registry.CurrentUser.OpenSubKey("Control Panel\\Desktop", true);
+
+	         //"Fit" style
+	         key.SetValue(@"WallpaperStyle", "6");
+	         key.SetValue(@"TileWallpaper", "0");
+
+	         key.Close();
+	      }
+	   }
+	}
+	"@
+
+	[Wallpaper.Setter]::SetWallpaper("C:\Users\user\Pictures\Backgrounds\victory1.jpg")
 }
 
 Function RenameUser {
@@ -242,9 +291,21 @@ Function ChangeAdminPasswd {
 	Write-Host "Complete" -ForegroundColor Green
 }
 
+Function Wait {
+    Write-Host "This Script has finished successfully." -BackgroundColor Red
+}
+
+# Wait for key press
+Function WaitForKey {
+    Write-Host "Press any key to restart... " -NoNewline
+    [Console]::ReadKey($true) | Out-Null
+    Write-Host "Complete" -ForegroundColor Green
+}
+
 Function Restart {
 	Write-Output "Restarting Windows, to log in as New User... " -NoNewline
 	Write-Host "Complete" -ForegroundColor Green
+	Start-Sleep -s 15
 	Restart-Computer
 }
 
