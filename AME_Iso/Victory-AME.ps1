@@ -1,5 +1,5 @@
 ############################################################
-####    Author: VictoryLinux                          ####
+####    Author: VictoryLinux                            ####
 ####                                                    ####    
 ####    This Script is a personal project. One script   ####    
 ####    to rule them all. To set up a fresh Windows     ####    
@@ -243,13 +243,13 @@ Function SetWallpaperSlideshow {
 
 Function RenameUser {
 	Write-Output "Renaming User Account... " -NoNewline
+	Get-LocalUser
 	Rename-LocalUser -Name "user" -NewName "Nimda"
 	Write-Host "Complete" -ForegroundColor Green
 }
 
 Function ChangeUserPasswd {
 	Write-Output "Changing Local User Account Password... " -NoNewline
-	Get-LocalUser
 	$Password = Read-Host "Enter the new password" -AsSecureString
 	$UserAccount = Get-LocalUser -Name "nimda"
 	$UserAccount | Set-LocalUser -Password $Password
@@ -258,7 +258,6 @@ Function ChangeUserPasswd {
 
 Function ChangeAdminPasswd {
 	Write-Output "Changing Local Administrator Account Password... " -NoNewline
-	Get-LocalUser
 	$Password = Read-Host "Enter the new password" -AsSecureString
 	$UserAccount = Get-LocalUser -Name "Administrator"
 	$UserAccount | Set-LocalUser -Password $Password
