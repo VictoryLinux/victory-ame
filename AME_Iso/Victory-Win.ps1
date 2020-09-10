@@ -74,7 +74,7 @@ Function UpdateInstalledApps {
 
 Function RestartExplorer {
 	Write-Output "Restarting Explorer.exe... " -NoNewline
-	Start-Process "C:\victory-win\\explorer.bat" -Verb runas
+	Start-Process "C:\victory-win\AME_Iso\explorer.bat" -Verb runas
 	Start-Sleep -s 15
 	Write-Host "Complete" -ForegroundColor Green
 }
