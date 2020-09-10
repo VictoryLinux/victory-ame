@@ -1,5 +1,8 @@
 # victory-win
 
+You will need Git:
+        choco install git -y
+
     The Short Way
         Run:
         Post_AME_Install.lnk
