@@ -14,6 +14,8 @@ Write-Output "DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK."
 Write-Output "Logging Output"
 Start-Transcript -path C:\LenovoSetup\Log.txt -append
 
+### PLACE A # IN FRONT OF THE FUNCTION YOU WANT TO STOP FROM RUNNING ###
+
 $tweaks = @(
     "RequireAdmin",
 #    "wifi",
@@ -39,7 +41,7 @@ $tweaks = @(
     "InstallDiscord",
     "InstallTwitch",
     "InstallTukui",
-    "InstallLenovo-thinkvantage-system-update",
+#    "InstallLenovo-thinkvantage-system-update",
 #    "WaitForKey",
     "SetUACLow",
     "DisableStickyKeys",
