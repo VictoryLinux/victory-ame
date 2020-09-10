@@ -12,7 +12,7 @@ Write-Output "DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK."
 
 
 Write-Output "Logging Output"
-Start-Transcript -path C:\LenovoSetup\Log.txt -append
+Start-Transcript -path C:\victory-win\Log.txt -append
 
 ### PLACE A # IN FRONT OF THE FUNCTION YOU WANT TO STOP FROM RUNNING ###
 
@@ -54,11 +54,10 @@ $tweaks = @(
     "RenameUser",
     "ChangeUserPasswd",
     "ChangeAdminPasswd",
+    "Wait",
+    "WaitForKey",
     "PostRestorepoint",
     "Restart"
-#    "Wait",
-#    "LaunchSU",
-#    "su",
     )
 
 Function RequireAdmin {
@@ -238,7 +237,7 @@ Function SetLockscreen {
 
 Function SetWallpaperSlideshow {
 	Write-Output "Setting Up Wallpaper Slideshow... " -NoNewline
-	copy-item 'C:\victory-win\AME_Iso\slideshow.ini' -Destination 'C:\Users\user\AppData\Roaming\Microsoft\Windows\Themes'
+	copy-item 'C:\victory-win\AME_Iso\slideshow.ini' -Destination 'C:\Users\user\AppData\Roaming\Microsoft\Windows\Themes' -Recurse -Force
 	Write-Host "Complete" -ForegroundColor Green
 }
 
