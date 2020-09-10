@@ -19,7 +19,7 @@ Start-Transcript -path C:\LenovoSetup\Log.txt -append
 $tweaks = @(
     "RequireAdmin",
 #    "wifi",
-    "Restorepoint",
+    "PreRestorepoint",
     "Uninstall",
     "UpdateInstalledApps",
 #    "InstallVictoryProgs",
@@ -54,6 +54,7 @@ $tweaks = @(
     "RenameUser",
     "ChangeUserPasswd",
     "ChangeAdminPasswd",
+    "PostRestorepoint",
     "Restart"
 #    "Wait",
 #    "LaunchSU",
@@ -71,7 +72,7 @@ Function Restorepoint {
     Write-Host "Creating a System Restore Point... " -NoNewline
     Enable-ComputerRestore -Drive "C:\"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
-    Checkpoint-Computer -Description "FirstBackup" -RestorePointType "MODIFY_SETTINGS"
+    Checkpoint-Computer -Description "PreScriptBackup" -RestorePointType "MODIFY_SETTINGS"
     Write-Host "Complete" -ForegroundColor Green
 }
 
@@ -265,14 +266,22 @@ Function ChangeAdminPasswd {
 }
 
 Function Wait {
-    Write-Host "This Script has finished successfully." -BackgroundColor Red
+	Write-Host "This Script has finished successfully." -BackgroundColor Red
 }
 
 # Wait for key press
 Function WaitForKey {
-    Write-Host "Press any key to restart... " -NoNewline
-    [Console]::ReadKey($true) | Out-Null
-    Write-Host "Complete" -ForegroundColor Green
+	Write-Host "Press any key to create a post script restore point and restart... " -NoNewline
+	[Console]::ReadKey($true) | Out-Null
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function PostRestorepoint {
+	Write-Host "Creating a System Restore Point... " -NoNewline
+	Enable-ComputerRestore -Drive "C:\"
+    	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
+    	Checkpoint-Computer -Description "PostScriptBackup" -RestorePointType "MODIFY_SETTINGS"
+    	Write-Host "Complete" -ForegroundColor Green
 }
 
 Function Restart {
