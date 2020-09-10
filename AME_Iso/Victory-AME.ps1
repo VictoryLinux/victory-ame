@@ -39,6 +39,7 @@ $tweaks = @(
     "InstallSublimeText",
     "InstallVLC",
     "InstallDiscord",
+    "InstallSimplenote",
     "InstallTwitch",
     "InstallTukui",
 #    "InstallLenovo-thinkvantage-system-update",
@@ -148,6 +149,12 @@ Function InstallBitwarden {
 	Write-Output "Installing Bitwarden... " -NoNewline
 	choco install bitwarden -y
 	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallSimplenote {
+        Write-Output "Installing Simplenote... " -NoNewline
+        choco install simplenote -y
+        Write-Host "Complete" -ForegroundColor Green
 }
 
 Function InstallVirtualbox {
