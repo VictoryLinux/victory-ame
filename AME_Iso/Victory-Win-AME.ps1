@@ -25,10 +25,21 @@ $tweaks = @(
     "InstallAdobe",
     "InstallJava",
     "Install7Zip",
+    "Installwinrar",
+    "InstallVNC",
+    "InstallTeamviewer",
+    "InstallGIMP",
+    "InstallBitwarden",
+    "InstallVirtualbox",
+    "InstallPartitionwizard",
     "InstallBrave",
     "InstallChromium",
     "InstallSublimeText",
     "InstallVLC",
+    "InstallDiscord",
+    "InstallTwitch",
+    "InstallTukui",
+    "InstallLenovo-thinkvantage-system-update",
 #    "WaitForKey",
     "SetUACLow",
     "DisableStickyKeys",
@@ -104,6 +115,42 @@ Function Install7Zip {
 	Write-Host "Complete" -ForegroundColor Green
 }
 
+Function Installwinrar {
+	Write-Output "Installing WinRAR... " -NoNewline
+	choco install winrar -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallVNC {
+	Write-Output "Installing VNC... " -NoNewline
+	choco install vnc-viewer vnc-connect -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallTeamviewer {
+	Write-Output "Installing Teamviewer... " -NoNewline
+	choco install teamviewer -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallGIMP {
+	Write-Output "Installing GIMP... " -NoNewline
+	choco install gimp -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallBitwarden {
+	Write-Output "Installing Bitwarden... " -NoNewline
+	choco install bitwarden -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallVirtualbox {
+	Write-Output "Installing Virtualbox... " -NoNewline
+	choco install virtualbox -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
 Function InstallBrave {
 	Write-Output "Installing Brave Browser... " -NoNewline
 	choco install brave -y
@@ -132,6 +179,36 @@ Function InstallSublimeText {
 Function InstallVLC {
 	Write-Output "Installing VLC Media Player... " -NoNewline
 	choco install vlc -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallPartitionwizard {
+	Write-Output "Installing Partition Wizard... " -NoNewline
+	choco install partitionwizard -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallDiscord {
+	Write-Output "Installing Discord... " -NoNewline
+	choco install discord -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallTwitch {
+	Write-Output "Installing Twitch... " -NoNewline
+	choco install twitch -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallTukui {
+	Write-Output "Installing Tukui... " -NoNewline
+	choco install tukui -y
+	Write-Host "Complete" -ForegroundColor Green
+}
+
+Function InstallLenovo-thinkvantage-system-update {
+	Write-Output "Installing Lenovo System Update... " -NoNewline
+	choco install lenovo-thinkvantage-system-update -y
 	Write-Host "Complete" -ForegroundColor Green
 }
 
