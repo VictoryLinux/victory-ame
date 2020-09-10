@@ -1,5 +1,9 @@
 # victory-win
 
+        This is a work in progress. 
+        At the moment the only script available assumes you installed using the Windows 10 Ameliorated ISO.
+        It then remoevs some thing, and adds some things.
+
         You will need Git:
                 choco install git -y
                 cd C:\
@@ -9,7 +13,7 @@
                 Go to C:\victory-win and Run:
                 Post_AME_Install.lnk
                 or
-                Fresh_Install.lnk
+                Post_Fresh_Install.lnk (NOT YET IMPLEMENTED)
                 as Administrator
         
         
