@@ -27,13 +27,13 @@ $tweaks = @(
     "InstallChromium",
     "InstallSublimeText",
     "InstallVLC",
-    "InstallPIA",
 #    "WaitForKey",
     "SetUACLow",
     "DisableStickyKeys",
     "EnableNumlock",
     "ShowKnownExtensions",
 #    "RestartExplorer",
+    "Backgrounds",
     "RenameUser",
     "ChangeUserPasswd",
     "ChangeAdminPasswd"
@@ -91,6 +91,7 @@ Function Install7Zip {
 Function InstallBrave {
 	Write-Output "Installing Brave Browser"
 	choco install brave -y
+	Copy-Item 'C:\Users\Administrator\Desktop\Brave.lnk' -Destination 'C:\Users\user\Desktop\Brave.lnk'
 }
 
 Function InstallChromium {
@@ -113,9 +114,9 @@ Function InstallVLC {
 	choco install vlc -y
 }
 
-Function InstallPIA {
-	Write-Output "Installing PIA VPN"
-	choco install pia -y
+Function Backgrounds {
+	Write-Output "Setting Up Desktop Wallpaper"
+	Copy-Item 'C:\victory-win\Backgrounds' -Destination 'C:\Users\user\Pictures'
 }
 
 Function RenameUser {
