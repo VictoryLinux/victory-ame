@@ -51,6 +51,7 @@ $tweaks = @(
     "Backgrounds",
     "SetLockscreen",
     "SetWallpaperSlideshow",
+#    "SetUserPhoto",
     "RenameUser",
     "ChangeUserPasswd",
     "ChangeAdminPasswd",
@@ -240,6 +241,10 @@ Function SetWallpaperSlideshow {
 	copy-item 'C:\victory-win\AME_Iso\slideshow.ini' -Destination 'C:\Users\user\AppData\Roaming\Microsoft\Windows\Themes' -Recurse -Force
 	Write-Host "Complete" -ForegroundColor Green
 }
+
+Function SetUserPhoto {
+	Write-Output "Setting User Photo... " -NoNewline
+	
 
 Function RenameUser {
 	Write-Output "Renaming User Account... " -NoNewline
