@@ -203,12 +203,14 @@ Function InstallPartitionwizard {
 Function InstallDiscord {
 	Write-Output "Installing Discord... " -NoNewline
 	choco install discord -y
+	Copy-Item 'C:\Users\Administrator\Desktop\Discord.lnk' -Destination 'C:\Users\user\Desktop\Discord.lnk'
 	Write-Host "Complete" -ForegroundColor Green
 }
 
 Function InstallTwitch {
 	Write-Output "Installing Twitch... " -NoNewline
 	choco install twitch -y
+	Copy-Item 'C:\Users\Administrator\Desktop\Twitch.lnk' -Destination 'C:\Users\user\Desktop\Twitch.lnk'
 	Write-Host "Complete" -ForegroundColor Green
 }
 
