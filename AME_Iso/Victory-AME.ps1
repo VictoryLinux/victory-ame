@@ -6,6 +6,11 @@
 ####    install with my personal prefrences.            ####
 ############################################################
 
+If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -WorkingDirectory $pwd -Verb RunAs
+		Exit
+	}
+
 Write-Output "Running Victory Windows Setup Script for Laptops"
 
 Write-Output "DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK."
@@ -17,7 +22,6 @@ Start-Transcript -path C:\victory-win\Log.txt -append
 ### PLACE A # IN FRONT OF THE FUNCTION YOU WANT TO STOP FROM RUNNING ###
 
 $tweaks = @(
-    "RequireAdmin",
 #    "wifi",
     "PreRestorepoint",
     "Uninstall",
@@ -61,13 +65,6 @@ $tweaks = @(
     "PostRestorepoint",
     "Restart"
     )
-
-Function RequireAdmin {
-	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -WorkingDirectory $pwd -Verb RunAs
-		Exit
-	}
-}
 
 Function Restorepoint {
     Write-Host "Creating a System Restore Point... " -NoNewline
@@ -253,7 +250,7 @@ Function SetWallpaperSlideshow {
 
 Function SetUserPhoto {
 	Write-Output "Setting User Photo... " -NoNewline
-	
+}
 
 Function RenameUser {
 	Write-Output "Renaming User Account... " -NoNewline
