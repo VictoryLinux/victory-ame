@@ -66,7 +66,7 @@ $tweaks = @(
     "Restart"
     )
 
-Function Restorepoint {
+Function PreRestorepoint {
     Write-Host "Creating a System Restore Point... " -NoNewline
     Enable-ComputerRestore -Drive "C:\"
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Type DWord -Value 0
