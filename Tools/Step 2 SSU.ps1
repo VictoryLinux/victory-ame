@@ -7,6 +7,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 Write-Output "Step 2 - Install Latest Servicing Stack Update"
 
-cd C:/SSU
+cd C:/Updates/SSU
 
 dism /online /add-package /packagepath=C:\SSU\name_of_the_ssu.cab
