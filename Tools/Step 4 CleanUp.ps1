@@ -5,6 +5,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
         Exit
     }
 
-Write-Output "Step 3 - Cleaning up before Amelioration"
+Write-Output "Step 3 - Cleaning up after Updates"
 
 dism /online /Cleanup-Image /StartComponentCleanup
