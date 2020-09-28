@@ -7,4 +7,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 Write-Output "Step 3 - Cleaning up after Updates"
 
+Write-Output "THIS MAY TAKE SEVERAL MINUTES" -BackgroundColor Red
+
 dism /online /Cleanup-Image /StartComponentCleanup
