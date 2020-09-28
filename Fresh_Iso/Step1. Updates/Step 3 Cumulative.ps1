@@ -7,6 +7,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 Write-Output "Step 3 - Install Latest Cumulative Update"
 
+Write-Output "THIS MAY TAKE SEVERAL MINUTES" -BackgroundColor Red
+
 cd C:/Updates/Cumulative
 
 dism /online /add-package /packagepath=C:\Updates\Cumulative\name_of_the_cumulative.cab
