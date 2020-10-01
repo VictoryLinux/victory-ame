@@ -3,6 +3,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
         Exit
     }
 
+
+Write-Output "Logging Output"
+Start-Transcript -path C:\Log.txt -append
+
+
 $tweaks = @(
     "Menu"
     )
