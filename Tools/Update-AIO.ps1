@@ -41,7 +41,8 @@ Function Menu
                     $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
                     # in ISE you may have to alt-tab or minimize ISE to see dialog box 
                     $result 
-                    if($result -eq "OK")    {    
+                    if($result -eq "OK")    {
+                            cd C:/Updates/SSU
                             Write-Host "Selected Downloaded Settings File:"  -ForegroundColor Green  
                             $OpenFileDialog.filename   
                             # $OpenFileDialog.CheckFileExists 
@@ -61,27 +62,24 @@ Function Menu
                     $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
                     $openFileDialog.filter = "All files (*.*)| *.*"   
                     $openFileDialog.ShowHelp = $True   
-                    Write-Host "Select Downloaded Settings File... (see FileOpen Dialog)" -ForegroundColor Green  
+                    Write-Host "Select Downloaded SSU Update install File... (see FileOpen Dialog)" -ForegroundColor Green  
                     $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
                     # in ISE you may have to alt-tab or minimize ISE to see dialog box 
                     $result 
                     if($result -eq "OK")    {    
-                            Write-Host "Selected Downloaded Settings File:"  -ForegroundColor Green  
+                            Write-Host "Selected SSU Update install File:"  -ForegroundColor Green  
                             $OpenFileDialog.filename   
                             # $OpenFileDialog.CheckFileExists 
              
                             # Import-AzurePublishSettingsFile -PublishSettingsFile $openFileDialog.filename  
                             # Unremark the above line if you actually want to perform an import of a publish settings file  
-                            Write-Host "Import Settings File Imported!" -ForegroundColor Green 
+                            Write-Host "SSU Update install File Imported!" -ForegroundColor Green 
                         } 
-                        else { Write-Host "Import Settings File Cancelled!" -ForegroundColor Yellow} 
-    
-                # video of Script https://channel9.msdn.com/Series/GuruPowerShell 
-                # More scripts from Dan Stolts "ITProGuru" at http://ITProGuru.com/Scripts
+                        else { Write-Host "Import SSU Update install File Cancelled!" -ForegroundColor Yellow} 
 
-                cd C:/Updates/Cumulative
+                cd C:/Updates/SSU
 
-                dism /online /add-package /packagepath=C:\SSU\$OpenFileDialog.filename
+                dism /online /add-package /packagepath=C:\Updates\wSSU\$OpenFileDialog.filename
                 anyKey
             }
             2 
@@ -94,7 +92,8 @@ Function Menu
                     $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
                     # in ISE you may have to alt-tab or minimize ISE to see dialog box 
                     $result 
-                    if($result -eq "OK")    {    
+                    if($result -eq "OK")    {
+                            cd C:/Updates/Cumulative
                             Write-Host "Selected Cumulative Update install File:"  -ForegroundColor Green  
                             $OpenFileDialog.filename   
                             # $OpenFileDialog.CheckFileExists 
@@ -140,7 +139,11 @@ Function Menu
             }
             3 
             {
-                RevertSpecificVMSnapshot
+                Write-Output "Step 3 - Cleaning up after Updates"
+
+                Write-Output "THIS MAY TAKE SEVERAL MINUTES" -BackgroundColor Red
+
+                dism /online /Cleanup-Image /StartComponentCleanup
                 anyKey
             }
             Q 
