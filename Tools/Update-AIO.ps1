@@ -4,9 +4,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     }
 
 $tweaks = @(
-    "Menu",
-    "PreRestorepoint",
-    "Restart"
+    "Menu"
     )
 
 Function Menu 
@@ -19,20 +17,29 @@ Function Menu
         Write-Host     -Object '**********************'
         Write-Host -Object 'Update Options' -ForegroundColor Yellow
         Write-Host     -Object '**********************'
-        Write-Host -Object '1.  Install SSU Update'
+        Write-Host -Object '1.  Download Updates'
         Write-Host -Object ''
-        Write-Host -Object '2.  Install Cumulative Update'
+        Write-Host -Object '2.  Install SSU Update'
         Write-Host -Object ''
-        Write-Host -Object '3.  Clean Up After Updates'
+        Write-Host -Object '3.  Install Cumulative Update'
+        Write-Host -Object ''
+        Write-Host -Object '4.  Clean Up After Updates'
+        Write-Host -Object ''
+        Write-Host -Object '5.  Ameliorate'
         Write-Host -Object ''
         Write-Host -Object 'Q.  Quit'
         Write-Host -Object $errout
-        $Menu = Read-Host -Prompt '(0-3 or Q to Quit)'
+        $Menu = Read-Host -Prompt '(0-5 or Q to Quit)'
  
         switch ($Menu) 
-        {
+           {
            1 
-            {
+           {
+                    Start-Process "https://support.microsoft.com/en-us/help/4555932/windows-10-update-history"
+                    Start-Process "https://www.catalog.update.microsoft.com/Home.aspx"
+           {
+           2 
+           {
                     $openFileDialog = New-Object windows.forms.openfiledialog   
                     $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
                     $openFileDialog.filter = "All files (*.*)| *.*"   
@@ -82,7 +89,7 @@ Function Menu
                 dism /online /add-package /packagepath=C:\Updates\wSSU\$OpenFileDialog.filename
                 anyKey
             }
-            2 
+            3 
             {
                     $openFileDialog = New-Object windows.forms.openfiledialog   
                     $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
@@ -137,7 +144,7 @@ Function Menu
                 anyKey
                 anyKey
             }
-            3 
+            4 
             {
                 Write-Output "Step 3 - Cleaning up after Updates"
 
