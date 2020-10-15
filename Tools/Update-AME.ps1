@@ -77,14 +77,14 @@ Function Download {
 if ( Test-Path $DIRE ) {
     echo "Directory Exists"
 } else {
-    Expand-Archive -LiteralPath C:\LenovoSetup\setup.Zip -DestinationPath C:\LenovoSetup
+    New-Item -Path "c:\Updates" -Name "SSU" -ItemType "directory"
 }
 	$DIRE = "C:\Updates\Cumulative"
 
 if ( Test-Path $DIRE ) {
     echo "Directory Exists"
 } else {
-    Expand-Archive -LiteralPath C:\LenovoSetup\setup.Zip -DestinationPath C:\LenovoSetup
+    New-Item -Path "c:\Updates" -Name "Cumulative" -ItemType "directory"
 }
 	Write-Host "Download Latest SSU & Cumulative Updates, save them to C:\Updates\Respective_Folder... " -NoNewline
 	Start-Process "https://support.microsoft.com/en-us/help/4555932/windows-10-update-history"
