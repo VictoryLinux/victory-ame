@@ -35,27 +35,27 @@ Function Menu
            1 
             {
                 Download            
-                anyKey
+                AnyKey
             }
             2 
             {
                 SSU
-                anyKey
+                AnyKey
             }
             3 
             {
                 Cumulative
-                anyKey
+                AnyKey
             }
             4 
             {
                 Clean
-                anyKey
+                AnyKey
             }
             5 
             {
                 Ameliorate
-                anyKey
+                AnyKey
             }
             Q 
             {
@@ -127,13 +127,72 @@ Function SSU {
                 anyKey
 }
 Function Cumulative {
-	
+	$openFileDialog = New-Object windows.forms.openfiledialog   
+                    $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
+                    $openFileDialog.filter = "All files (*.*)| *.*"   
+                    $openFileDialog.ShowHelp = $True   
+                    Write-Host "Select the Cumulative Update install File... (see FileOpen Dialog)" -ForegroundColor Green  
+                    $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
+                    # in ISE you may have to alt-tab or minimize ISE to see dialog box 
+                    $result 
+                    if($result -eq "OK")    {
+                            cd C:/Updates/Cumulative
+                            Write-Host "Selected Cumulative Update install File:"  -ForegroundColor Green  
+                            $OpenFileDialog.filename   
+                            # $OpenFileDialog.CheckFileExists 
+             
+                            # Import-AzurePublishSettingsFile -PublishSettingsFile $openFileDialog.filename  
+                            # Unremark the above line if you actually want to perform an import of a publish settings file  
+                            Write-Host "Cumulative Update install File Imported!" -ForegroundColor Green 
+                        } 
+                        else { Write-Host "Import Cumulative Update install Cancelled!" -ForegroundColor Yellow} 
+    
+                # video of Script https://channel9.msdn.com/Series/GuruPowerShell 
+                # More scripts from Dan Stolts "ITProGuru" at http://ITProGuru.com/Scripts
+
+                expand -F:* $OpenFileDialog.filename C:\Updates\Cumulative
+
+                $openFileDialog = New-Object windows.forms.openfiledialog   
+                    $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
+                    $openFileDialog.filter = "All files (*.*)| *.*"   
+                    $openFileDialog.ShowHelp = $True   
+                    Write-Host "Select Downloaded Settings File... (see FileOpen Dialog)" -ForegroundColor Green  
+                    $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
+                    # in ISE you may have to alt-tab or minimize ISE to see dialog box 
+                    $result 
+                    if($result -eq "OK")    {    
+                            Write-Host "Selected Downloaded Settings File:"  -ForegroundColor Green  
+                            $OpenFileDialog.filename   
+                            # $OpenFileDialog.CheckFileExists 
+             
+                            # Import-AzurePublishSettingsFile -PublishSettingsFile $openFileDialog.filename  
+                            # Unremark the above line if you actually want to perform an import of a publish settings file  
+                            Write-Host "Import Settings File Imported!" -ForegroundColor Green 
+                        } 
+                        else { Write-Host "Import Settings File Cancelled!" -ForegroundColor Yellow} 
+    
+                # video of Script https://channel9.msdn.com/Series/GuruPowerShell 
+                # More scripts from Dan Stolts "ITProGuru" at http://ITProGuru.com/Scripts
+
+                cd C:/Updates/Cumulative
+
+                dism /online /add-package /packagepath=C:\SSU\$OpenFileDialog.filename
 }
 Function Clean {
-	
+	 Write-Output "Step 3 - Cleaning up after Updates"
+
+         Write-Output "THIS MAY TAKE SEVERAL MINUTES" -BackgroundColor Red
+
+         dism /online /Cleanup-Image /StartComponentCleanup
 }
 Function Ameliorate {
 
+}
+
+Function AnyKey {
+	Write-Host "Press any key to return to the menu... " -NoNewline
+	[Console]::ReadKey($true) | Out-Null
+	Write-Host "Complete" -ForegroundColor Green
 }
  
 # Launch The Menu
