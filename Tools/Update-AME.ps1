@@ -72,28 +72,42 @@ Function Menu
 }   
 
 Function Download {
+	$DIRE = "C:\Updates\SSU"
+
+if ( Test-Path $DIRE ) {
+    echo "Directory Exists"
+} else {
+    Expand-Archive -LiteralPath C:\LenovoSetup\setup.Zip -DestinationPath C:\LenovoSetup
+}
+	$DIRE = "C:\Updates\Cumulative"
+
+if ( Test-Path $DIRE ) {
+    echo "Directory Exists"
+} else {
+    Expand-Archive -LiteralPath C:\LenovoSetup\setup.Zip -DestinationPath C:\LenovoSetup
+}
 	Write-Host "Download Latest SSU & Cumulative Updates, save them to C:\Updates\Respective_Folder... " -NoNewline
 	Start-Process "https://support.microsoft.com/en-us/help/4555932/windows-10-update-history"
-    Start-Process "https://www.catalog.update.microsoft.com/Home.aspx"
+	Start-Process "https://www.catalog.update.microsoft.com/Home.aspx"
 }
 Function SSU {
 	$openFileDialog = New-Object windows.forms.openfiledialog   
-                    $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
-                    $openFileDialog.filter = "All files (*.*)| *.*"   
-                    $openFileDialog.ShowHelp = $True   
-                    Write-Host "Select Downloaded Settings File... (see FileOpen Dialog)" -ForegroundColor Green  
-                    $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
-                    # in ISE you may have to alt-tab or minimize ISE to see dialog box 
-                    $result 
-                    if($result -eq "OK")    {
-                            cd C:/Updates/SSU
-                            Write-Host "Selected Downloaded Settings File:"  -ForegroundColor Green  
-                            $OpenFileDialog.filename   
-                            # $OpenFileDialog.CheckFileExists 
+        $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
+        $openFileDialog.filter = "All files (*.*)| *.*"   
+        $openFileDialog.ShowHelp = $True   
+        	Write-Host "Select Downloaded Settings File... (see FileOpen Dialog)" -ForegroundColor Green  
+                $result = $openFileDialog.ShowDialog()   # Display the Dialog / Wait for user response 
+                # in ISE you may have to alt-tab or minimize ISE to see dialog box 
+                $result 
+                if($result -eq "OK")    {
+                	cd C:/Updates/SSU
+                        Write-Host "Selected Downloaded Settings File:"  -ForegroundColor Green  
+                        $OpenFileDialog.filename   
+                        # $OpenFileDialog.CheckFileExists 
              
-                            # Import-AzurePublishSettingsFile -PublishSettingsFile $openFileDialog.filename  
-                            # Unremark the above line if you actually want to perform an import of a publish settings file  
-                            Write-Host "Import Settings File Imported!" -ForegroundColor Green 
+	     		# Import-AzurePublishSettingsFile -PublishSettingsFile $openFileDialog.filename  
+                        # Unremark the above line if you actually want to perform an import of a publish settings file  
+                        Write-Host "Import Settings File Imported!" -ForegroundColor Green 
                         } 
                         else { Write-Host "Import Settings File Cancelled!" -ForegroundColor Yellow} 
     
