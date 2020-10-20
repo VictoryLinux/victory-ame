@@ -91,6 +91,8 @@ if ( Test-Path $DIRE ) {
 	Start-Process "https://www.catalog.update.microsoft.com/Home.aspx"
 }
 Function SSU {
+	Write-Host "Disableing Internet Access... (see FileOpen Dialog)" -ForegroundColor Green  
+	Disable-NetAdapter "Ethernet 2"
 	$openFileDialog = New-Object windows.forms.openfiledialog   
         $openFileDialog.initialDirectory = [System.IO.Directory]::GetCurrentDirectory()   
         $openFileDialog.filter = "All files (*.*)| *.*"   
